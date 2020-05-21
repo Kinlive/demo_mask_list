@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MaskListViewController.swift
 //  DemoMaskList
 //
 //  Created by Thinkpower on 2020/5/21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class MaskListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -9,11 +9,19 @@
 /* Begin PBXBuildFile section */
 		FE1518582476565100CF24DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1518572476565100CF24DD /* AppDelegate.swift */; };
 		FE15185A2476565100CF24DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1518592476565100CF24DD /* SceneDelegate.swift */; };
-		FE15185C2476565100CF24DD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15185B2476565100CF24DD /* ViewController.swift */; };
+		FE15185C2476565100CF24DD /* MaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15185B2476565100CF24DD /* MaskListViewController.swift */; };
 		FE15185F2476565100CF24DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE15185D2476565100CF24DD /* Main.storyboard */; };
 		FE1518612476565400CF24DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE1518602476565400CF24DD /* Assets.xcassets */; };
 		FE1518642476565400CF24DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE1518622476565400CF24DD /* LaunchScreen.storyboard */; };
 		FE15186F2476565500CF24DD /* DemoMaskListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15186E2476565500CF24DD /* DemoMaskListTests.swift */; };
+		FE15187B2476572700CF24DD /* MaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15187A2476572700CF24DD /* MaskListViewModel.swift */; };
+		FE15187D2476573C00CF24DD /* MaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15187C2476573C00CF24DD /* MaskList.swift */; };
+		FE151880247657A200CF24DD /* MaskListApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15187F247657A200CF24DD /* MaskListApiService.swift */; };
+		FE1518822476580200CF24DD /* ApiServicePortocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1518812476580200CF24DD /* ApiServicePortocol.swift */; };
+		FE1518842476590200CF24DD /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1518832476590200CF24DD /* ApiError.swift */; };
+		FE15188624765B8900CF24DD /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15188524765B8900CF24DD /* Mask.swift */; };
+		FE15188B24765C0400CF24DD /* MaskProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15188A24765C0400CF24DD /* MaskProperty.swift */; };
+		FE15188D24765C1300CF24DD /* MaskGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15188C24765C1300CF24DD /* MaskGeometry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +38,7 @@
 		FE1518542476565100CF24DD /* DemoMaskList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoMaskList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE1518572476565100CF24DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE1518592476565100CF24DD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FE15185B2476565100CF24DD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FE15185B2476565100CF24DD /* MaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskListViewController.swift; sourceTree = "<group>"; };
 		FE15185E2476565100CF24DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FE1518602476565400CF24DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE1518632476565400CF24DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +46,14 @@
 		FE15186A2476565500CF24DD /* DemoMaskListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoMaskListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE15186E2476565500CF24DD /* DemoMaskListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoMaskListTests.swift; sourceTree = "<group>"; };
 		FE1518702476565500CF24DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FE15187A2476572700CF24DD /* MaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskListViewModel.swift; sourceTree = "<group>"; };
+		FE15187C2476573C00CF24DD /* MaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskList.swift; sourceTree = "<group>"; };
+		FE15187F247657A200CF24DD /* MaskListApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskListApiService.swift; sourceTree = "<group>"; };
+		FE1518812476580200CF24DD /* ApiServicePortocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServicePortocol.swift; sourceTree = "<group>"; };
+		FE1518832476590200CF24DD /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
+		FE15188524765B8900CF24DD /* Mask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mask.swift; sourceTree = "<group>"; };
+		FE15188A24765C0400CF24DD /* MaskProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskProperty.swift; sourceTree = "<group>"; };
+		FE15188C24765C1300CF24DD /* MaskGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskGeometry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,9 +95,10 @@
 		FE1518562476565100CF24DD /* DemoMaskList */ = {
 			isa = PBXGroup;
 			children = (
+				FE15187E2476577C00CF24DD /* Service */,
+				FE1518792476570500CF24DD /* MaskList */,
 				FE1518572476565100CF24DD /* AppDelegate.swift */,
 				FE1518592476565100CF24DD /* SceneDelegate.swift */,
-				FE15185B2476565100CF24DD /* ViewController.swift */,
 				FE15185D2476565100CF24DD /* Main.storyboard */,
 				FE1518602476565400CF24DD /* Assets.xcassets */,
 				FE1518622476565400CF24DD /* LaunchScreen.storyboard */,
@@ -97,6 +114,53 @@
 				FE1518702476565500CF24DD /* Info.plist */,
 			);
 			path = DemoMaskListTests;
+			sourceTree = "<group>";
+		};
+		FE1518792476570500CF24DD /* MaskList */ = {
+			isa = PBXGroup;
+			children = (
+				FE15188924765BC500CF24DD /* Model */,
+				FE15188824765BBF00CF24DD /* ViewModel */,
+				FE15188724765BB700CF24DD /* View */,
+			);
+			path = MaskList;
+			sourceTree = "<group>";
+		};
+		FE15187E2476577C00CF24DD /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				FE15187F247657A200CF24DD /* MaskListApiService.swift */,
+				FE1518812476580200CF24DD /* ApiServicePortocol.swift */,
+				FE1518832476590200CF24DD /* ApiError.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		FE15188724765BB700CF24DD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FE15185B2476565100CF24DD /* MaskListViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FE15188824765BBF00CF24DD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FE15187A2476572700CF24DD /* MaskListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FE15188924765BC500CF24DD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				FE15187C2476573C00CF24DD /* MaskList.swift */,
+				FE15188524765B8900CF24DD /* Mask.swift */,
+				FE15188A24765C0400CF24DD /* MaskProperty.swift */,
+				FE15188C24765C1300CF24DD /* MaskGeometry.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,8 +264,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE15185C2476565100CF24DD /* ViewController.swift in Sources */,
+				FE15188B24765C0400CF24DD /* MaskProperty.swift in Sources */,
+				FE15185C2476565100CF24DD /* MaskListViewController.swift in Sources */,
+				FE15187D2476573C00CF24DD /* MaskList.swift in Sources */,
+				FE15188624765B8900CF24DD /* Mask.swift in Sources */,
 				FE1518582476565100CF24DD /* AppDelegate.swift in Sources */,
+				FE1518822476580200CF24DD /* ApiServicePortocol.swift in Sources */,
+				FE151880247657A200CF24DD /* MaskListApiService.swift in Sources */,
+				FE15188D24765C1300CF24DD /* MaskGeometry.swift in Sources */,
+				FE1518842476590200CF24DD /* ApiError.swift in Sources */,
+				FE15187B2476572700CF24DD /* MaskListViewModel.swift in Sources */,
 				FE15185A2476565100CF24DD /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
