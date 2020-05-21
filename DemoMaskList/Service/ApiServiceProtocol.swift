@@ -1,5 +1,5 @@
 //
-//  ApiServicePortocol.swift
+//  ApiServiceProtocol.swift
 //  DemoMaskList
 //
 //  Created by Thinkpower on 2020/5/21.
@@ -8,8 +8,11 @@
 
 import Foundation
 
+
 protocol ApiServiceProtocol: class {
     associatedtype modelT
+    typealias ApiResult = Result<modelT, ApiError>
+    typealias ResultClosure = (ApiResult) -> Void
     
-    func fetchData() -> modelT
+    func fetchData(with url: URL, result: @escaping ResultClosure)
 }

@@ -11,4 +11,5 @@ import Foundation
 enum ApiError: Error {
     case parseFail(String)
     case networkingError(String)
+    case emptyData(String)
 }

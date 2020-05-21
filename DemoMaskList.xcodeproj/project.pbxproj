@@ -17,11 +17,12 @@
 		FE15187B2476572700CF24DD /* MaskListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15187A2476572700CF24DD /* MaskListViewModel.swift */; };
 		FE15187D2476573C00CF24DD /* MaskList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15187C2476573C00CF24DD /* MaskList.swift */; };
 		FE151880247657A200CF24DD /* MaskListApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15187F247657A200CF24DD /* MaskListApiService.swift */; };
-		FE1518822476580200CF24DD /* ApiServicePortocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1518812476580200CF24DD /* ApiServicePortocol.swift */; };
+		FE1518822476580200CF24DD /* ApiServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1518812476580200CF24DD /* ApiServiceProtocol.swift */; };
 		FE1518842476590200CF24DD /* ApiError.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1518832476590200CF24DD /* ApiError.swift */; };
 		FE15188624765B8900CF24DD /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15188524765B8900CF24DD /* Mask.swift */; };
 		FE15188B24765C0400CF24DD /* MaskProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15188A24765C0400CF24DD /* MaskProperty.swift */; };
 		FE15188D24765C1300CF24DD /* MaskGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15188C24765C1300CF24DD /* MaskGeometry.swift */; };
+		FE15188F24766ABF00CF24DD /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15188E24766ABF00CF24DD /* URLSessionProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,11 +50,12 @@
 		FE15187A2476572700CF24DD /* MaskListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskListViewModel.swift; sourceTree = "<group>"; };
 		FE15187C2476573C00CF24DD /* MaskList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskList.swift; sourceTree = "<group>"; };
 		FE15187F247657A200CF24DD /* MaskListApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskListApiService.swift; sourceTree = "<group>"; };
-		FE1518812476580200CF24DD /* ApiServicePortocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServicePortocol.swift; sourceTree = "<group>"; };
+		FE1518812476580200CF24DD /* ApiServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiServiceProtocol.swift; sourceTree = "<group>"; };
 		FE1518832476590200CF24DD /* ApiError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiError.swift; sourceTree = "<group>"; };
 		FE15188524765B8900CF24DD /* Mask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mask.swift; sourceTree = "<group>"; };
 		FE15188A24765C0400CF24DD /* MaskProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskProperty.swift; sourceTree = "<group>"; };
 		FE15188C24765C1300CF24DD /* MaskGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskGeometry.swift; sourceTree = "<group>"; };
+		FE15188E24766ABF00CF24DD /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,9 +131,10 @@
 		FE15187E2476577C00CF24DD /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				FE15187F247657A200CF24DD /* MaskListApiService.swift */,
-				FE1518812476580200CF24DD /* ApiServicePortocol.swift */,
+				FE1518812476580200CF24DD /* ApiServiceProtocol.swift */,
 				FE1518832476590200CF24DD /* ApiError.swift */,
+				FE15188E24766ABF00CF24DD /* URLSessionProtocol.swift */,
+				FE15189024766BF100CF24DD /* Services */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -161,6 +164,14 @@
 				FE15188C24765C1300CF24DD /* MaskGeometry.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		FE15189024766BF100CF24DD /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				FE15187F247657A200CF24DD /* MaskListApiService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,12 +275,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE15188F24766ABF00CF24DD /* URLSessionProtocol.swift in Sources */,
 				FE15188B24765C0400CF24DD /* MaskProperty.swift in Sources */,
 				FE15185C2476565100CF24DD /* MaskListViewController.swift in Sources */,
 				FE15187D2476573C00CF24DD /* MaskList.swift in Sources */,
 				FE15188624765B8900CF24DD /* Mask.swift in Sources */,
 				FE1518582476565100CF24DD /* AppDelegate.swift in Sources */,
-				FE1518822476580200CF24DD /* ApiServicePortocol.swift in Sources */,
+				FE1518822476580200CF24DD /* ApiServiceProtocol.swift in Sources */,
 				FE151880247657A200CF24DD /* MaskListApiService.swift in Sources */,
 				FE15188D24765C1300CF24DD /* MaskGeometry.swift in Sources */,
 				FE1518842476590200CF24DD /* ApiError.swift in Sources */,
