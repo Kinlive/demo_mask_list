@@ -10,7 +10,7 @@ import Foundation
 
 class MaskListApiService: ApiServiceProtocol {
     
-    typealias modelT = [MaskList]
+    typealias modelT = MaskList
     
     private let session: URLSessionProtocol
     
@@ -26,7 +26,7 @@ class MaskListApiService: ApiServiceProtocol {
                 return
             }
             
-            guard let data = data else {
+            guard let data = data, !data.isEmpty else {
                 result(.failure(.emptyData("Data empty.")))
                 return
             }
@@ -36,7 +36,7 @@ class MaskListApiService: ApiServiceProtocol {
                 result(.success(model))
                 
             } catch let error {
-                result(.failure(.parseFail(error.localizedDescription)))
+                result(.failure(.parseFail("\n\(error.localizedDescription) \n in data: \(String(data: data, encoding: .utf8) ?? "")")))
             }
         }
         

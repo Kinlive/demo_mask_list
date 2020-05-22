@@ -23,6 +23,8 @@
 		FE15188B24765C0400CF24DD /* MaskProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15188A24765C0400CF24DD /* MaskProperty.swift */; };
 		FE15188D24765C1300CF24DD /* MaskGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15188C24765C1300CF24DD /* MaskGeometry.swift */; };
 		FE15188F24766ABF00CF24DD /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15188E24766ABF00CF24DD /* URLSessionProtocol.swift */; };
+		FE151893247765B900CF24DD /* MockSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE151892247765B900CF24DD /* MockSession.swift */; };
+		FE151895247768F100CF24DD /* MaskServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE151894247768F100CF24DD /* MaskServiceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +58,8 @@
 		FE15188A24765C0400CF24DD /* MaskProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskProperty.swift; sourceTree = "<group>"; };
 		FE15188C24765C1300CF24DD /* MaskGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskGeometry.swift; sourceTree = "<group>"; };
 		FE15188E24766ABF00CF24DD /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
+		FE151892247765B900CF24DD /* MockSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSession.swift; sourceTree = "<group>"; };
+		FE151894247768F100CF24DD /* MaskServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +118,7 @@
 			children = (
 				FE15186E2476565500CF24DD /* DemoMaskListTests.swift */,
 				FE1518702476565500CF24DD /* Info.plist */,
+				FE151894247768F100CF24DD /* MaskServiceTests.swift */,
 			);
 			path = DemoMaskListTests;
 			sourceTree = "<group>";
@@ -169,9 +174,18 @@
 		FE15189024766BF100CF24DD /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				FE151891247765A500CF24DD /* Session */,
 				FE15187F247657A200CF24DD /* MaskListApiService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		FE151891247765A500CF24DD /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				FE151892247765B900CF24DD /* MockSession.swift */,
+			);
+			path = Session;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,6 +301,7 @@
 				FE1518842476590200CF24DD /* ApiError.swift in Sources */,
 				FE15187B2476572700CF24DD /* MaskListViewModel.swift in Sources */,
 				FE15185A2476565100CF24DD /* SceneDelegate.swift in Sources */,
+				FE151893247765B900CF24DD /* MockSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +310,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE15186F2476565500CF24DD /* DemoMaskListTests.swift in Sources */,
+				FE151895247768F100CF24DD /* MaskServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
