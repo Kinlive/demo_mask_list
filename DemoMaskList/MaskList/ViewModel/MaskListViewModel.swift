@@ -21,7 +21,9 @@ class MaskListViewModel {
 
   // Output define
   struct Output {
+    /// number of counties
     let numberOfItems: Int
+
     let cellViewModels: [MaskListCellViewModel]
 
     func cellViewModel(at indexPath: IndexPath) -> MaskListCellViewModel {
@@ -80,7 +82,26 @@ class MaskListViewModel {
 
   // Transfer API response model to cellViewModels
   private func prepareIterms(of models: MaskListApiService.modelT) {
-    models.features.forEach { cellViewModels.append(MaskListCellViewModel(mask: $0)) }
+    let dic = groupedCounty(of: models)
+
+    dic.forEach { cellViewModels.append(MaskListCellViewModel(maskAdult: $0.value, county: $0.key)) }
+
+  }
+
+  /// The common use to grouped with each counties and sum of mask num of adult.
+  func groupedCounty(of models: MaskListApiService.modelT) -> [String : Int] {
+    var dic: [String : Int] = [:]
+
+    models.features.forEach {
+      if var maskAdult = dic[$0.properties.county] {
+        maskAdult += $0.properties.maskAdult
+        dic[$0.properties.county] = maskAdult
+
+      } else {
+        dic[$0.properties.county] = $0.properties.maskAdult
+      }
+    }
+    return dic
   }
 
 }

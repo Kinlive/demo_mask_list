@@ -13,9 +13,9 @@ class MaskListCellViewModel {
   let numberOfMaskAtAdult: Int
   let county: String
 
-  init(mask: Mask) {
-    numberOfMaskAtAdult = mask.properties.maskAdult
-    county = mask.properties.county
+  init(maskAdult: Int, county: String) {
+    numberOfMaskAtAdult = maskAdult
+    self.county = county
   }
 
 }

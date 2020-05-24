@@ -75,8 +75,10 @@ class MaskListViewModelTests: XCTestCase {
   func test_fetchSuccess() {
     // arrange
     let stubModel = StubGenerator().stubOfMaskList()
-    let cellViewModels = stubModel.features.map { MaskListCellViewModel(mask: $0) }
     let viewModel = MaskListViewModel(service: apiService, events: events)
+    let cellViewModels = viewModel
+      .groupedCounty(of: stubModel)
+      .map { MaskListCellViewModel(maskAdult: $0.value, county: $0.key) }
 
     // act
     viewModel.startFetch(at: url)
@@ -84,6 +86,7 @@ class MaskListViewModelTests: XCTestCase {
 
     // assert
     XCTAssertFalse(viewModel.output.cellViewModels.isEmpty)
+
     XCTAssertEqual(cellViewModels.count, viewModel.output.numberOfItems)
   }
 
@@ -118,24 +121,30 @@ class MaskListViewModelTests: XCTestCase {
   func test_getCellViewModel() {
     // arrange
     let stubModel = StubGenerator().stubOfMaskList()
+    let viewModel = MaskListViewModel(service: apiService, events: events)
+
+    let groupedStubModels = viewModel
+          .groupedCounty(of: stubModel)
+          .map { MaskListCellViewModel(maskAdult: $0.value, county: $0.key) }
 
     let indexPathZero = IndexPath(item: 0, section: 0)
     let indexPathOne = IndexPath(item: 1, section: 0)
 
-    let maskZero = stubModel.features[indexPathZero.row]
-    let maskOne = stubModel.features[indexPathOne.row]
-
-    let viewModel = MaskListViewModel(service: apiService, events: events)
+    let countyZero = groupedStubModels[indexPathZero.row]
+    let countyOne = groupedStubModels[indexPathOne.row]
 
     // act
     viewModel.startFetch()
     apiService.fetchSuccess(model: stubModel)
 
     // assert cellViewModel's properties be set correctly
-    let cellViewModel = viewModel.output.cellViewModel(at: indexPathOne)
-    XCTAssertEqual(maskOne.properties.county, cellViewModel.county)
-    XCTAssertEqual(maskOne.properties.maskAdult, cellViewModel.numberOfMaskAtAdult)
 
-    XCTAssertNotEqual(maskZero.properties.county, cellViewModel.county)
+    // be tested model of item 1
+    let cellViewModel = viewModel.output.cellViewModel(at: indexPathOne)
+
+    XCTAssertEqual(countyOne.county, cellViewModel.county)
+    XCTAssertEqual(countyOne.numberOfMaskAtAdult, cellViewModel.numberOfMaskAtAdult)
+
+    XCTAssertNotEqual(countyZero.county, cellViewModel.county)
   }
 }
