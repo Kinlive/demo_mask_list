@@ -65,7 +65,7 @@ class MaskServiceTests: XCTestCase {
         // act
         service?.fetchData(with: url, result: { [weak self] (result) in
             switch result {
-            case .success(let model): self?.resultOfModel = model
+            case .success(let model): self?.resultOfModel = model as? MaskListApiService.modelT
             case .failure(let error): self?.resultOfError = error
             }
         })
@@ -90,7 +90,7 @@ class MaskServiceTests: XCTestCase {
         // act
         service?.fetchData(with: url, result: { [weak self] (result) in
             switch result {
-            case .success(let model): self?.resultOfModel = model
+            case .success(let model): self?.resultOfModel = model as? MaskListApiService.modelT
             case .failure(let error): self?.resultOfError = error
             }
         })
@@ -109,7 +109,7 @@ class MaskServiceTests: XCTestCase {
         // act
         service?.fetchData(with: url, result: { [weak self] (result) in
             switch result {
-            case .success(let model): self?.resultOfModel = model
+            case .success(let model): self?.resultOfModel = model as? MaskListApiService.modelT
             case .failure(let error): self?.resultOfError = error
             }
         })
@@ -128,7 +128,7 @@ class MaskServiceTests: XCTestCase {
         // act
         service?.fetchData(with: truelyUrl, result: { [weak self] (result) in
             switch result {
-            case .success(let model): self?.resultOfModel = model
+            case .success(let model): self?.resultOfModel = model as? MaskListApiService.modelT
             case .failure(let error): self?.resultOfError = error
             }
         })

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1195C7E2247A43E600392FE2 /* MaskListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1195C7E1247A43E600392FE2 /* MaskListCellViewModel.swift */; };
+		1195C7E4247A455000392FE2 /* MaskListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1195C7E3247A455000392FE2 /* MaskListViewModelTests.swift */; };
+		1195C7E6247A677900392FE2 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = 1195C7E5247A677800392FE2 /* content.json */; };
+		1195C7EB247A6D1E00392FE2 /* MockApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1195C7EA247A6D1E00392FE2 /* MockApiService.swift */; };
+		1195C7EE247A6D8500392FE2 /* StubGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1195C7ED247A6D8500392FE2 /* StubGenerator.swift */; };
 		FE1518582476565100CF24DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1518572476565100CF24DD /* AppDelegate.swift */; };
 		FE15185A2476565100CF24DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1518592476565100CF24DD /* SceneDelegate.swift */; };
 		FE15185C2476565100CF24DD /* MaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15185B2476565100CF24DD /* MaskListViewController.swift */; };
@@ -38,6 +43,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1195C7E1247A43E600392FE2 /* MaskListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskListCellViewModel.swift; sourceTree = "<group>"; };
+		1195C7E3247A455000392FE2 /* MaskListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskListViewModelTests.swift; sourceTree = "<group>"; };
+		1195C7E5247A677800392FE2 /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
+		1195C7EA247A6D1E00392FE2 /* MockApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockApiService.swift; sourceTree = "<group>"; };
+		1195C7ED247A6D8500392FE2 /* StubGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubGenerator.swift; sourceTree = "<group>"; };
 		FE1518542476565100CF24DD /* DemoMaskList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoMaskList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE1518572476565100CF24DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE1518592476565100CF24DD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +90,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1195C7E7247A6CE100392FE2 /* MaskServiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				FE151894247768F100CF24DD /* MaskServiceTests.swift */,
+			);
+			path = MaskServiceTests;
+			sourceTree = "<group>";
+		};
+		1195C7E8247A6CF800392FE2 /* ViewModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				1195C7E3247A455000392FE2 /* MaskListViewModelTests.swift */,
+			);
+			path = ViewModelTests;
+			sourceTree = "<group>";
+		};
+		1195C7E9247A6D0C00392FE2 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				1195C7EA247A6D1E00392FE2 /* MockApiService.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		1195C7EC247A6D6600392FE2 /* Stub */ = {
+			isa = PBXGroup;
+			children = (
+				1195C7ED247A6D8500392FE2 /* StubGenerator.swift */,
+			);
+			path = Stub;
+			sourceTree = "<group>";
+		};
 		FE15184B2476565100CF24DD = {
 			isa = PBXGroup;
 			children = (
@@ -116,9 +158,12 @@
 		FE15186D2476565500CF24DD /* DemoMaskListTests */ = {
 			isa = PBXGroup;
 			children = (
+				1195C7EC247A6D6600392FE2 /* Stub */,
+				1195C7E9247A6D0C00392FE2 /* Mock */,
+				1195C7E8247A6CF800392FE2 /* ViewModelTests */,
+				1195C7E7247A6CE100392FE2 /* MaskServiceTests */,
 				FE15186E2476565500CF24DD /* DemoMaskListTests.swift */,
 				FE1518702476565500CF24DD /* Info.plist */,
-				FE151894247768F100CF24DD /* MaskServiceTests.swift */,
 			);
 			path = DemoMaskListTests;
 			sourceTree = "<group>";
@@ -136,6 +181,7 @@
 		FE15187E2476577C00CF24DD /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				1195C7E5247A677800392FE2 /* content.json */,
 				FE1518812476580200CF24DD /* ApiServiceProtocol.swift */,
 				FE1518832476590200CF24DD /* ApiError.swift */,
 				FE15188E24766ABF00CF24DD /* URLSessionProtocol.swift */,
@@ -156,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				FE15187A2476572700CF24DD /* MaskListViewModel.swift */,
+				1195C7E1247A43E600392FE2 /* MaskListCellViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -272,6 +319,7 @@
 				FE1518642476565400CF24DD /* LaunchScreen.storyboard in Resources */,
 				FE1518612476565400CF24DD /* Assets.xcassets in Resources */,
 				FE15185F2476565100CF24DD /* Main.storyboard in Resources */,
+				1195C7E6247A677900392FE2 /* content.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,6 +347,7 @@
 				FE151880247657A200CF24DD /* MaskListApiService.swift in Sources */,
 				FE15188D24765C1300CF24DD /* MaskGeometry.swift in Sources */,
 				FE1518842476590200CF24DD /* ApiError.swift in Sources */,
+				1195C7E2247A43E600392FE2 /* MaskListCellViewModel.swift in Sources */,
 				FE15187B2476572700CF24DD /* MaskListViewModel.swift in Sources */,
 				FE15185A2476565100CF24DD /* SceneDelegate.swift in Sources */,
 				FE151893247765B900CF24DD /* MockSession.swift in Sources */,
@@ -309,6 +358,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1195C7EB247A6D1E00392FE2 /* MockApiService.swift in Sources */,
+				1195C7E4247A455000392FE2 /* MaskListViewModelTests.swift in Sources */,
+				1195C7EE247A6D8500392FE2 /* StubGenerator.swift in Sources */,
 				FE15186F2476565500CF24DD /* DemoMaskListTests.swift in Sources */,
 				FE151895247768F100CF24DD /* MaskServiceTests.swift in Sources */,
 			);

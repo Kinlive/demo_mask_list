@@ -8,10 +8,9 @@
 
 import Foundation
 
-
+typealias ApiResult = Result<Codable, ApiError>
 protocol ApiServiceProtocol: class {
-    associatedtype modelT
-    typealias ApiResult = Result<modelT, ApiError>
+    //associatedtype modelT
     typealias ResultClosure = (ApiResult) -> Void
     
     func fetchData(with url: URL, result: @escaping ResultClosure)
