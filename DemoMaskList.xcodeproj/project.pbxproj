@@ -12,6 +12,7 @@
 		1195C7E6247A677900392FE2 /* content.json in Resources */ = {isa = PBXBuildFile; fileRef = 1195C7E5247A677800392FE2 /* content.json */; };
 		1195C7EB247A6D1E00392FE2 /* MockApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1195C7EA247A6D1E00392FE2 /* MockApiService.swift */; };
 		1195C7EE247A6D8500392FE2 /* StubGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1195C7ED247A6D8500392FE2 /* StubGenerator.swift */; };
+		11B02099247A83D80032E692 /* MaskListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11B02098247A83D80032E692 /* MaskListCell.swift */; };
 		FE1518582476565100CF24DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1518572476565100CF24DD /* AppDelegate.swift */; };
 		FE15185A2476565100CF24DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1518592476565100CF24DD /* SceneDelegate.swift */; };
 		FE15185C2476565100CF24DD /* MaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15185B2476565100CF24DD /* MaskListViewController.swift */; };
@@ -48,6 +49,7 @@
 		1195C7E5247A677800392FE2 /* content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = content.json; sourceTree = "<group>"; };
 		1195C7EA247A6D1E00392FE2 /* MockApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockApiService.swift; sourceTree = "<group>"; };
 		1195C7ED247A6D8500392FE2 /* StubGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubGenerator.swift; sourceTree = "<group>"; };
+		11B02098247A83D80032E692 /* MaskListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskListCell.swift; sourceTree = "<group>"; };
 		FE1518542476565100CF24DD /* DemoMaskList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoMaskList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE1518572476565100CF24DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE1518592476565100CF24DD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				FE15185B2476565100CF24DD /* MaskListViewController.swift */,
+				11B02098247A83D80032E692 /* MaskListCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 				FE15185C2476565100CF24DD /* MaskListViewController.swift in Sources */,
 				FE15187D2476573C00CF24DD /* MaskList.swift in Sources */,
 				FE15188624765B8900CF24DD /* Mask.swift in Sources */,
+				11B02099247A83D80032E692 /* MaskListCell.swift in Sources */,
 				FE1518582476565100CF24DD /* AppDelegate.swift in Sources */,
 				FE1518822476580200CF24DD /* ApiServiceProtocol.swift in Sources */,
 				FE151880247657A200CF24DD /* MaskListApiService.swift in Sources */,
