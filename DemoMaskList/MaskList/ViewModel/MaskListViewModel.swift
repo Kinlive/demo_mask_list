@@ -35,7 +35,7 @@ class MaskListViewModel {
   // MARK: - Properties
 
   /// The events triggers UIs to fresh something.
-  private let events: Events
+  public let events: Events
 
   private(set) var cellViewModels: [MaskListCellViewModel] = [] {
     didSet {

@@ -24,6 +24,17 @@ class MaskListViewController: UIViewController {
     return view
   }()
 
+  lazy var errorButton: UIButton = {
+    let btn = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 50, height: 50)))
+    btn.translatesAutoresizingMaskIntoConstraints = false
+    btn.backgroundColor = .lightGray
+    btn.layer.cornerRadius = 25
+    btn.layer.masksToBounds = true
+    btn.setTitle("Error", for: .normal)
+
+    return btn
+  }()
+
   lazy var viewModel: MaskListViewModel = {
     let vm = MaskListViewModel(events: .init(onReloadData: {
       DispatchQueue.main.async {
@@ -48,8 +59,11 @@ class MaskListViewController: UIViewController {
       // Do any additional setup after loading the view.
     view.addSubview(tableView)
     view.addSubview(indicatorView)
+    view.addSubview(errorButton)
     tableView.delegate = self
     tableView.dataSource = self
+
+    errorButton.addTarget(self, action: #selector(onErrorButtonTouched), for: .touchUpInside)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -70,6 +84,11 @@ class MaskListViewController: UIViewController {
 
     indicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     indicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+
+    errorButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
+    errorButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
+    errorButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
+    errorButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
   }
 
   func showAlert(error: ApiError) {
@@ -77,6 +96,11 @@ class MaskListViewController: UIViewController {
     let ok = UIAlertAction(title: "確認", style: .default, handler: nil)
     alert.addAction(ok)
     present(alert, animated: true, completion: nil)
+  }
+
+  @objc
+  func onErrorButtonTouched() {
+    viewModel.events.onFetchError?(.parseFail("Test parse failed"))
   }
 
 }
