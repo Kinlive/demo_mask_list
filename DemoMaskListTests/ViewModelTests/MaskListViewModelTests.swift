@@ -106,6 +106,8 @@ class MaskListViewModelTests: XCTestCase {
     // act
     viewModel.startFetch()
 
+    wait(for: [expect], timeout: 1)
+    
     // assert service on loading
     XCTAssertTrue(loadingState)
 
@@ -114,8 +116,6 @@ class MaskListViewModelTests: XCTestCase {
 
     // assert service loading finished
     XCTAssertFalse(loadingState)
-
-    wait(for: [expect], timeout: 1)
   }
 
   func test_getCellViewModel() {

@@ -42,15 +42,19 @@ class MaskServiceTests: XCTestCase {
         // arrange
         let url = URL(string: "https://com.test_url")!
         service = MaskListApiService(session: session)
+        let expect = XCTestExpectation()
         
         // act
-        service?.fetchData(with: url) { _ in }
+        service?.fetchData(with: url) { _ in
+            expect.fulfill()
+        }
+        
+        wait(for: [expect], timeout: 1)
         
         // assert to check the url passed equal with the requested url.
         XCTAssertEqual(url.path, session.lastUrl?.path)
         // assert with did dataTask had called resume()
         XCTAssertTrue(session.nextDataTask.wasResume)
-        
     }
     
     func test_GettingMaskService_ResponseParseFail() throws {
@@ -59,6 +63,7 @@ class MaskServiceTests: XCTestCase {
         let url = URL(string: "https://com.test_url")!
         let fakeData = "{fakeKey:'value'} ".data(using: .utf8)
         session.nextData = fakeData
+        let expect = XCTestExpectation()
         
         service = MaskListApiService(session: session)
         
@@ -68,9 +73,10 @@ class MaskServiceTests: XCTestCase {
             case .success(let model): self?.resultOfModel = model as? MaskListApiService.modelT
             case .failure(let error): self?.resultOfError = error
             }
+            expect.fulfill()
         })
         
-        sleep(1)
+        wait(for: [expect], timeout: 1)
         
         // assert the result error must equal to parseFail
         XCTAssertEqual(resultOfError, ApiError.parseFail(""))
@@ -86,6 +92,7 @@ class MaskServiceTests: XCTestCase {
         let url = URL(string: "test")!
         session.nextError = .networkingError("error anything")
         service = MaskListApiService(session: session)
+        let expect = XCTestExpectation()
         
         // act
         service?.fetchData(with: url, result: { [weak self] (result) in
@@ -93,9 +100,11 @@ class MaskServiceTests: XCTestCase {
             case .success(let model): self?.resultOfModel = model as? MaskListApiService.modelT
             case .failure(let error): self?.resultOfError = error
             }
+            expect.fulfill()
         })
         
-        sleep(1)
+        wait(for: [expect], timeout: 1)
+        
         // assert
         XCTAssertEqual(resultOfError, ApiError.networkingError(""))
     }
@@ -105,6 +114,7 @@ class MaskServiceTests: XCTestCase {
         let url = URL(string: "test")!
         session.nextData = Data()
         service = MaskListApiService(session: session)
+        let expect = XCTestExpectation()
         
         // act
         service?.fetchData(with: url, result: { [weak self] (result) in
@@ -112,9 +122,11 @@ class MaskServiceTests: XCTestCase {
             case .success(let model): self?.resultOfModel = model as? MaskListApiService.modelT
             case .failure(let error): self?.resultOfError = error
             }
+            expect.fulfill()
         })
         
-        sleep(1)
+        wait(for: [expect], timeout: 1)
+        
         // assert error must be data empty
         XCTAssertEqual(resultOfError, ApiError.emptyData(""))
     }
@@ -124,6 +136,7 @@ class MaskServiceTests: XCTestCase {
         let truelyUrl = URL(string: "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json")!
         
         service = MaskListApiService(session: URLSession.shared)
+        let expect = XCTestExpectation()
         
         // act
         service?.fetchData(with: truelyUrl, result: { [weak self] (result) in
@@ -131,16 +144,17 @@ class MaskServiceTests: XCTestCase {
             case .success(let model): self?.resultOfModel = model as? MaskListApiService.modelT
             case .failure(let error): self?.resultOfError = error
             }
+            expect.fulfill()
         })
         
-        // wait for response back.
-        sleep(3)
+        wait(for: [expect], timeout: 1)
         
         // assert to check model must not to be nil
         XCTAssertNotNil(resultOfModel)
         
         // assert error always nil
         XCTAssertNil(resultOfError)
+        
     }
 
 }
