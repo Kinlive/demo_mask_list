@@ -85,7 +85,7 @@ class MaskListViewModel {
     let dic = groupedCounty(of: models)
 
     dic.forEach { cellViewModels.append(MaskListCellViewModel(maskAdult: $0.value, county: $0.key)) }
-
+    cellViewModels.sort(by: { $0.county < $1.county } )
   }
 
   /// The common use to grouped with each counties and sum of mask num of adult.

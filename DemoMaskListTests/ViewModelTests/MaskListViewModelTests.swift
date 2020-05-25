@@ -126,6 +126,7 @@ class MaskListViewModelTests: XCTestCase {
     let groupedStubModels = viewModel
           .groupedCounty(of: stubModel)
           .map { MaskListCellViewModel(maskAdult: $0.value, county: $0.key) }
+          .sorted(by: { $0.county < $1.county })
 
     let indexPathZero = IndexPath(item: 0, section: 0)
     let indexPathOne = IndexPath(item: 1, section: 0)

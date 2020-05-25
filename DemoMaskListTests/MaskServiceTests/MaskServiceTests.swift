@@ -114,7 +114,7 @@ class MaskServiceTests: XCTestCase {
         let url = URL(string: "test")!
         session.nextData = Data()
         service = MaskListApiService(session: session)
-        let expect = XCTestExpectation()
+        let failDataEmpty = expectation(description: #function)
         
         // act
         service?.fetchData(with: url, result: { [weak self] (result) in
@@ -122,10 +122,10 @@ class MaskServiceTests: XCTestCase {
             case .success(let model): self?.resultOfModel = model as? MaskListApiService.modelT
             case .failure(let error): self?.resultOfError = error
             }
-            expect.fulfill()
+            failDataEmpty.fulfill()
         })
         
-        wait(for: [expect], timeout: 1)
+        wait(for: [failDataEmpty], timeout: 1)
         
         // assert error must be data empty
         XCTAssertEqual(resultOfError, ApiError.emptyData(""))
@@ -136,7 +136,7 @@ class MaskServiceTests: XCTestCase {
         let truelyUrl = URL(string: "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json")!
         
         service = MaskListApiService(session: URLSession.shared)
-        let expect = XCTestExpectation()
+        let didFetched = expectation(description: #function)
         
         // act
         service?.fetchData(with: truelyUrl, result: { [weak self] (result) in
@@ -144,10 +144,10 @@ class MaskServiceTests: XCTestCase {
             case .success(let model): self?.resultOfModel = model as? MaskListApiService.modelT
             case .failure(let error): self?.resultOfError = error
             }
-            expect.fulfill()
+            didFetched.fulfill()
         })
         
-        wait(for: [expect], timeout: 1)
+        wait(for: [didFetched], timeout: 3)
         
         // assert to check model must not to be nil
         XCTAssertNotNil(resultOfModel)
