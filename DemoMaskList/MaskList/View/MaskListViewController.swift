@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class MaskListViewController: UIViewController {
+class MaskListViewController: UIViewController, UITableViewDelegate {
 
+  let disposeBag = DisposeBag()
+    
   lazy var tableView: UITableView = {
     let table = UITableView(frame: .zero)
     table.register(MaskListCell.self, forCellReuseIdentifier: String(describing: MaskListCell.self))
@@ -34,23 +38,33 @@ class MaskListViewController: UIViewController {
 
     return btn
   }()
+    
+  let refreshControl = UIRefreshControl()
 
   lazy var viewModel: MaskListViewModel = {
     let vm = MaskListViewModel(events: .init(onReloadData: {
-      DispatchQueue.main.async {
-        self.tableView.reloadData()
-      }
+      //DispatchQueue.main.async {
+        //self.tableView.reloadData()
+      //}
     }, onFetchError: { (error) in
-      DispatchQueue.main.async {
-        self.showAlert(error: error)
-      }
+      //DispatchQueue.main.async {
+        //self.showAlert(error: error)
+      //}
 
     }, isLoading: { (isLoading) in
-      DispatchQueue.main.async {
-        isLoading ? self.indicatorView.startAnimating() : self.indicatorView.stopAnimating()
-      }
+//      DispatchQueue.main.async {
+//        isLoading ? self.indicatorView.startAnimating() : self.indicatorView.stopAnimating()
+//      }
     }))
-
+    
+    vm.events.rx_isLoading
+        .bind(to: self.indicatorView.rx.isAnimating)
+        .disposed(by: disposeBag)
+    
+    vm.events.rx_FetchError
+        .bind(to: rx_showAlert())
+        .disposed(by: disposeBag)
+    
     return vm
   }()
 
@@ -60,22 +74,21 @@ class MaskListViewController: UIViewController {
     view.addSubview(tableView)
     view.addSubview(indicatorView)
     view.addSubview(errorButton)
-    tableView.delegate = self
-    tableView.dataSource = self
-
-    errorButton.addTarget(self, action: #selector(onErrorButtonTouched), for: .touchUpInside)
+    
+    setupUI()
+    setupBindings()
+   
+    refreshControl.sendActions(for: .valueChanged)
   }
 
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-    viewModel.startFetch()
+  func setupUI() {
+    tableView.rowHeight = UITableView.automaticDimension
+    tableView.estimatedRowHeight = 100
+    tableView.insertSubview(refreshControl, at: 0)
+    tableView.delegate = nil
+    tableView.dataSource = nil
   }
-
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-    setConstraints()
-  }
-
+    
   func setConstraints() {
     tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -90,39 +103,68 @@ class MaskListViewController: UIViewController {
     errorButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
     errorButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
   }
+    
+  func setupBindings() {
+    
+    refreshControl.rx.controlEvent(.valueChanged)
+        .asObservable()
+        .bind(to: viewModel.rx_startFetch)
+        .disposed(by: disposeBag)
+    
+    viewModel.output.rx_cellViewModels
+        .bind(to: tableView.rx.items(cellIdentifier: String(describing: MaskListCell.self))) { (index, cellViewModel, cell: MaskListCell) in
+            cell.rx_viewModel.onNext(cellViewModel)
+    }
+        .disposed(by: disposeBag)
+    
+    errorButton.rx.tap
+        .bind(to: rx_onErrorButtonTouched())
+        .disposed(by: disposeBag)
+    
+    tableView.rx.modelSelected(MaskListCell.self)
+        .subscribe(onNext: { _ in })
+        .disposed(by: disposeBag)
+    
+    rx.viewDidLayoutSubviews
+        .subscribe { [unowned self] _ in self.setConstraints() }
+        .disposed(by: disposeBag)
+  }
+  
+  func rx_showAlert() -> Binder<ApiError> {
+    
+    return Binder<ApiError>(UIAlertController(title: nil, message: nil, preferredStyle: .alert), scheduler: MainScheduler.instance) { [weak self] (alert, error) in
+        guard let `self` = self else { return }
+        alert.title = "Fetch Error"
+        alert.message = error.localizedDescription
 
-  func showAlert(error: ApiError) {
-    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-    let ok = UIAlertAction(title: "確認", style: .default, handler: nil)
-    alert.addAction(ok)
-    present(alert, animated: true, completion: nil)
+        let ok = UIAlertAction(title: "確認", style: .default, handler: nil)
+        alert.addAction(ok)
+        self.present(alert, animated: true, completion: nil)
+    }
   }
 
-  @objc
-  func onErrorButtonTouched() {
-    viewModel.events.onFetchError?(.parseFail("Test parse failed"))
+  func rx_onErrorButtonTouched() -> Binder<Void> {
+    return Binder<Void>(self.errorButton) { [unowned self] (btn, _) in
+        self.viewModel.events.rx_FetchError.onNext(.parseFail("Test parse failed"))
+    }
   }
 
 }
 
-extension MaskListViewController: UITableViewDelegate, UITableViewDataSource {
-
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return viewModel.output.numberOfItems
-  }
-
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: MaskListCell.self)) as? MaskListCell else { return UITableViewCell() }
-
-    cell.viewModel = viewModel.output.cellViewModel(at: indexPath)
-
-    return cell
-
-  }
-
-  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 120
-  }
-
+extension Reactive where Base: UIViewController {
+    public var viewDidLoad: ControlEvent<Void> {
+        return ControlEvent(events: self.methodInvoked(#selector(Base.viewDidLoad)).map { _ in })
+    }
+    
+    public var viewWillAppear: ControlEvent<Bool> {
+        return ControlEvent(events: self.methodInvoked(#selector(Base.viewWillAppear(_:))).map { $0.first as? Bool ?? false })
+    }
+    
+    public var viewDidAppear: ControlEvent<Bool> {
+        return ControlEvent(events: self.methodInvoked(#selector(Base.viewDidAppear(_:))).map { $0.first as? Bool ?? false })
+    }
+    
+    public var viewDidLayoutSubviews: ControlEvent<Void> {
+        return ControlEvent(events: self.methodInvoked(#selector(Base.viewDidLayoutSubviews)).map { _ in })
+    }
 }
-

@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import RxSwift
 
 class MaskListCell: UITableViewCell {
-
+  let disposeBag = DisposeBag()
+    
   lazy var countyLabel: UILabel = {
     let label = UILabel(frame: .zero)
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -28,11 +30,23 @@ class MaskListCell: UITableViewCell {
       self.maskLabel.text = "成人口罩庫存: \(viewModel.numberOfMaskAtAdult)片"
     }
   }
+    
+  let rx_viewModel = PublishSubject<MaskListCellViewModel>()
 
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     addSubview(countyLabel)
     addSubview(maskLabel)
+    
+    rx_viewModel
+        .map { "縣市:" + $0.county }
+        .bind(to: countyLabel.rx.text)
+        .disposed(by: disposeBag)
+    
+    rx_viewModel
+        .map { "成人口罩庫存: \($0.numberOfMaskAtAdult)" }
+        .bind(to: maskLabel.rx.text)
+        .disposed(by: disposeBag)
   }
 
   required init?(coder: NSCoder) {
