@@ -15,32 +15,15 @@ class MaskListViewModel {
   // MARK: - Define struct
   // Events define
   struct Events {
-    var onReloadData: (() -> Void)?
-    var onFetchError: ((ApiError) -> Void)?
-    var isLoading: ((Bool) -> Void)?
-    
-    let rx_reloadData = PublishSubject<Void>()
     let rx_FetchError = PublishSubject<ApiError>()
     let rx_isLoading = PublishSubject<Bool>()
-    
   }
 
   // Output define
   struct Output {
-    /// number of counties
-    let numberOfItems: Int
-    
-    let cellViewModels: [MaskListCellViewModel]
-    
     let rx_numberOfItemrs = PublishSubject<Int>()
     let rx_cellViewModels = PublishSubject<[MaskListCellViewModel]>()
     
-    
-    
-    func cellViewModel(at indexPath: IndexPath) -> MaskListCellViewModel {
-      return cellViewModels[indexPath.row]
-    }
-
   }
 
   // MARK: - Properties
@@ -48,18 +31,11 @@ class MaskListViewModel {
   /// The events triggers UIs to fresh something.
   public let events: Events
 
-  private(set) var cellViewModels: [MaskListCellViewModel] = [] {
-    didSet {
-      self.output = Output(numberOfItems: cellViewModels.count, cellViewModels: cellViewModels)
-      self.events.onReloadData?()
-    }
-  }
-
   /// Request api service
   private let apiService: ApiServiceProtocol
 
   /// Output contains values for UIs display.
-  private(set) var output: Output = Output(numberOfItems: 0, cellViewModels: [])
+  private(set) var output: Output = Output()
 
   var rx_startFetch: AnyObserver<Void> {
       return AnyObserver { [unowned self] _ in
@@ -70,7 +46,7 @@ class MaskListViewModel {
   // MARK: - Initialize
 
   /// Initiailize with dependency injection.
-  init(service: ApiServiceProtocol = MaskListApiService(session: URLSession.shared), events: Events) {
+  init(service: ApiServiceProtocol = MaskListApiService(session: URLSession.shared), events: Events = Events()) {
     self.apiService = service
     self.events = events
   }
@@ -80,21 +56,18 @@ class MaskListViewModel {
   // start fetch mask informations
   func startFetch(at url: URL = MaskListViewModel.url) {
 
-    //self.events.isLoading?(true)
     self.events.rx_isLoading.onNext(true)
 
     apiService.fetchData(with: url) { [weak self] (result) in
       guard let `self` = self else { return }
-
-      //self.events.isLoading?(false)
-        self.events.rx_isLoading.onNext(false)
+        
+      self.events.rx_isLoading.onNext(false)
         
       switch result {
       case .success(let model):
         self.prepareIterms(of: model as! MaskListApiService.modelT)
 
       case .failure(let error):
-        //self.events.onFetchError?(error)
         self.events.rx_FetchError.onNext(error)
       }
     }
@@ -105,6 +78,8 @@ class MaskListViewModel {
   private func prepareIterms(of models: MaskListApiService.modelT) {
     let dic = groupedCounty(of: models)
 
+    var cellViewModels: [MaskListCellViewModel] = []
+    
     dic.forEach { cellViewModels.append(MaskListCellViewModel(maskAdult: $0.value, county: $0.key)) }
     cellViewModels.sort(by: { $0.county < $1.county } )
     
