@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol URLSessionProtocol: class {
     typealias TaskResult = (Data?, URLResponse?, Error?) -> Void
@@ -26,3 +27,15 @@ extension URLSession: URLSessionProtocol {
 }
 
 extension URLSessionDataTask: URLSessionDataTaskProtocol { }
+
+
+protocol RxURLSessionProtocol: class {
+    func task(with url: URL) -> Observable<Data>
+}
+
+extension URLSession: RxURLSessionProtocol {
+    func task(with url: URL) -> Observable<Data> {
+        return rx.data(request: URLRequest(url: url)).flatMap { Observable.just($0) }
+    }
+    
+}

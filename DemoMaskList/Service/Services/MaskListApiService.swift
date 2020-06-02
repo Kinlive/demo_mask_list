@@ -7,15 +7,19 @@
 //
 
 import Foundation
+import RxSwift
 
 class MaskListApiService: ApiServiceProtocol {
     
     typealias modelT = MaskList
     
     private let session: URLSessionProtocol
+    private let rx_session: RxURLSessionProtocol
     
-    init(session: URLSessionProtocol) {
+    init(session: URLSessionProtocol, rxSession: RxURLSessionProtocol) {
         self.session = session
+        self.rx_session = rxSession
+        
     }
     
     // implement ApiServiceProtocol method.
@@ -41,6 +45,14 @@ class MaskListApiService: ApiServiceProtocol {
         }
         
         task.resume()
+    }
+    
+    func rx_fetchData(with url: URL) -> Observable<MaskList> {
+        return rx_session.task(with: url)
+            .retry(3)
+            .observeOn(OperationQueueScheduler.init(operationQueue: .init()))
+            .compactMap { try JSONDecoder().decode(MaskList.self, from: $0) }
+            .share(replay: 1)
     }
     
 }

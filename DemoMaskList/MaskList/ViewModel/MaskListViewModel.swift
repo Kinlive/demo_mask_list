@@ -11,83 +11,90 @@ import RxSwift
 
 class MaskListViewModel {
   static let url: URL = URL(string: "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json")!
+  private let disposeBag = DisposeBag()
 
-  // MARK: - Define struct
-  // Events define
-  struct Events {
-    let rx_FetchError = PublishSubject<ApiError>()
-    let rx_isLoading = PublishSubject<Bool>()
-  }
-
-  // Output define
-  struct Output {
-    let rx_numberOfItemrs = PublishSubject<Int>()
-    let rx_cellViewModels = PublishSubject<[MaskListCellViewModel]>()
+ // MARK: - Properties
+  // MARK: - Input
+  public let rx_viewWillAppear: AnyObserver<Bool>
+  public let rx_startFetch: AnyObserver<Void>
+  public let rx_triggerError: AnyObserver<Void>
+  public let rx_itemSelected: AnyObserver<IndexPath>
     
-  }
-
-  // MARK: - Properties
-
+  // MARK: - Outputs
+  public let rx_isLoading: Observable<Bool>
+  public let rx_cellViewModels: Observable<[MaskListCellViewModel]>
+  public let rx_FetchError: Observable<ApiError>
+    
   /// The events triggers UIs to fresh something.
-  public let events: Events
+  //public let events: Events
 
   /// Request api service
   private let apiService: ApiServiceProtocol
 
   /// Output contains values for UIs display.
-  private(set) var output: Output = Output()
+  //private(set) var output: Output = Output()
 
-  var rx_startFetch: AnyObserver<Void> {
-      return AnyObserver { [unowned self] _ in
-          self.startFetch()
-      }
-  }
-    
   // MARK: - Initialize
 
   /// Initiailize with dependency injection.
-  init(service: ApiServiceProtocol = MaskListApiService(session: URLSession.shared), events: Events = Events()) {
+    init(service: ApiServiceProtocol = MaskListApiService(session: URLSession.shared, rxSession: URLSession.shared),
+         url: URL = MaskListViewModel.url) {
     self.apiService = service
-    self.events = events
+    
+    // declare area variable use to Observable.combinLatest puts parameters for observableType and pulic variable for bind ui.
+    // when fetch data error or receive another errors.
+    let _fetchError = PublishSubject<ApiError>()
+    rx_FetchError = _fetchError.asObservable()
+    
+    // control refresh and indicator start/stop animation
+    let _isLoading = PublishSubject<Bool>()
+    rx_isLoading = _isLoading.asObserver()
+    
+    // fetch data when refreshControl actions
+    let _startFetch = PublishSubject<Void>()
+    rx_startFetch = _startFetch.asObserver()
+    
+    // when viewWillAppear start fetch data
+    let _viewWillAppear = PublishSubject<Bool>()
+    rx_viewWillAppear = _viewWillAppear.asObserver()
+    _viewWillAppear
+        .compactMap { _ in () }
+        .bind(to: _startFetch)
+        .disposed(by: disposeBag)
+    
+    // manual emit an error by errorBtn
+    let _triggerError = PublishSubject<Void>()
+    rx_triggerError = _triggerError.asObserver()
+    _triggerError
+        .compactMap { ApiError.emptyData("Test bind") }
+        .bind(to: _fetchError)
+        .disposed(by: disposeBag)
+    
+    // when selected item of cell
+    let _itemSelected = PublishSubject<IndexPath>()
+    rx_itemSelected = _itemSelected.asObserver()
+    _itemSelected
+        .compactMap { ApiError.networkingError("Test selected\($0)") }
+        .bind(to: _fetchError)
+        .disposed(by: disposeBag)
+    
+    // fetch data
+    rx_cellViewModels = _startFetch
+        .flatMapLatest { _ -> Observable<[MaskListCellViewModel]> in
+            _isLoading.onNext(true)
+            return service.rx_fetchData(with: url)
+                .flatMapLatest { maskList in MaskListViewModel.rx_prepareItems(of: maskList) }
+                .catchError { error -> Observable<[MaskListCellViewModel]> in
+                    _fetchError.onNext(.networkingError(error.localizedDescription))
+                    return .empty()
+                }
+        }
+        .do(onNext: { _ in _isLoading.onNext(false) })
+        .do(onError: { error in _fetchError.onNext(.parseFail(error.localizedDescription)) })
   }
 
   // MARK: - Methods
-
-  // start fetch mask informations
-  func startFetch(at url: URL = MaskListViewModel.url) {
-
-    self.events.rx_isLoading.onNext(true)
-
-    apiService.fetchData(with: url) { [weak self] (result) in
-      guard let `self` = self else { return }
-        
-      self.events.rx_isLoading.onNext(false)
-        
-      switch result {
-      case .success(let model):
-        self.prepareIterms(of: model as! MaskListApiService.modelT)
-
-      case .failure(let error):
-        self.events.rx_FetchError.onNext(error)
-      }
-    }
-  }
-    
-
-  // Transfer API response model to cellViewModels
-  private func prepareIterms(of models: MaskListApiService.modelT) {
-    let dic = groupedCounty(of: models)
-
-    var cellViewModels: [MaskListCellViewModel] = []
-    
-    dic.forEach { cellViewModels.append(MaskListCellViewModel(maskAdult: $0.value, county: $0.key)) }
-    cellViewModels.sort(by: { $0.county < $1.county } )
-    
-    output.rx_cellViewModels.onNext(cellViewModels)
-  }
-
-  /// The common use to grouped with each counties and sum of mask num of adult.
-  func groupedCounty(of models: MaskListApiService.modelT) -> [String : Int] {
+  static func rx_prepareItems(of models: MaskListApiService.modelT) -> Observable<[MaskListCellViewModel]> {
     var dic: [String : Int] = [:]
 
     models.features.forEach {
@@ -99,7 +106,13 @@ class MaskListViewModel {
         dic[$0.properties.county] = $0.properties.maskAdult
       }
     }
-    return dic
+    
+    var cellViewModels: [MaskListCellViewModel] = []
+    
+    dic.forEach { cellViewModels.append(MaskListCellViewModel(maskAdult: $0.value, county: $0.key)) }
+    cellViewModels.sort(by: { $0.county < $1.county })
+    
+    return Observable.just(cellViewModels)
   }
-
+    
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RxSwift
 
 typealias ApiResult = Result<Codable, ApiError>
 protocol ApiServiceProtocol: class {
@@ -14,4 +15,5 @@ protocol ApiServiceProtocol: class {
     typealias ResultClosure = (ApiResult) -> Void
     
     func fetchData(with url: URL, result: @escaping ResultClosure)
+    func rx_fetchData(with url: URL) -> Observable<MaskList>
 }

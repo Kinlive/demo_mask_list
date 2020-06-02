@@ -7,15 +7,16 @@
 //
 
 import XCTest
+import RxSwift
 
 @testable import DemoMaskList
 class MaskListViewModelTests: XCTestCase {
 
   let url = URL(string: "https://test.com")!
-  var events = MaskListViewModel.Events(onReloadData: nil, onFetchError: nil, isLoading: nil)
 
   var apiService: MockApiService!
   var session: MockSession!
+  let disposeBag = DisposeBag()
 
   override func setUpWithError() throws {
       // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -30,9 +31,7 @@ class MaskListViewModelTests: XCTestCase {
 
     apiService = nil
     session = nil
-    events.isLoading = nil
-    events.onFetchError = nil
-    events.onReloadData = nil
+    
 
     try super.tearDownWithError()
   }
@@ -41,10 +40,10 @@ class MaskListViewModelTests: XCTestCase {
   func test_startFetch() {
 
     // arrange
-    let viewModel = MaskListViewModel(service: apiService, events: events)
+    let viewModel = MaskListViewModel(service: apiService)
 
     // act
-    viewModel.startFetch(at: url)
+    viewModel.rx_startFetch.onNext(())
 
     // assert
     XCTAssertTrue(apiService.isFetchDataCalled)
@@ -56,13 +55,17 @@ class MaskListViewModelTests: XCTestCase {
     // arrange
     let inputError: ApiError = .emptyData("EmptyData")
     var outputError: ApiError?
-
-    events.onFetchError = { error in
-      outputError = error
-    }
-
-    let viewModel = MaskListViewModel(service: apiService, events: events)
-
+    let expect = expectation(description: "Fetch Error")
+ 
+    let viewModel = MaskListViewModel(service: apiService)
+    
+    viewModel.events.rx_FetchError
+        .subscribe(onNext: { apiError in
+          outputError = apiError
+          expect.fulfill()
+        })
+        .disposed(by: disposeBag)
+    
     // act
     viewModel.startFetch(at: url)
     apiService.fetchError(inputError)
@@ -75,7 +78,7 @@ class MaskListViewModelTests: XCTestCase {
   func test_fetchSuccess() {
     // arrange
     let stubModel = StubGenerator().stubOfMaskList()
-    let viewModel = MaskListViewModel(service: apiService, events: events)
+    let viewModel = MaskListViewModel(service: apiService)
     let cellViewModels = viewModel
       .groupedCounty(of: stubModel)
       .map { MaskListCellViewModel(maskAdult: $0.value, county: $0.key) }

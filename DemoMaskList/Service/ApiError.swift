@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum ApiError: Error {
+public enum ApiError: Error {
     case parseFail(String)
     case networkingError(String)
     case emptyData(String)
@@ -23,7 +23,7 @@ enum ApiError: Error {
 }
 
 extension ApiError: Equatable {
-    static func == (lhs: ApiError, rhs: ApiError) -> Bool {
+    public static func == (lhs: ApiError, rhs: ApiError) -> Bool {
         switch (lhs, rhs) {
         case (.parseFail, .parseFail)            : return true
         case (.networkingError, .networkingError): return true
