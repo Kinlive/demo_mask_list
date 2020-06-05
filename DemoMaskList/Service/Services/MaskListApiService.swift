@@ -52,7 +52,6 @@ class MaskListApiService: ApiServiceProtocol {
             .retry(3)
             .observeOn(OperationQueueScheduler.init(operationQueue: .init()))
             .compactMap { try JSONDecoder().decode(MaskList.self, from: $0) }
-            .share(replay: 1)
     }
     
 }

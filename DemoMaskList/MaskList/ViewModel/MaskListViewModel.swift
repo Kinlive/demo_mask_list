@@ -80,21 +80,24 @@ class MaskListViewModel {
     
     // fetch data
     rx_cellViewModels = _startFetch
-        .flatMapLatest { _ -> Observable<[MaskListCellViewModel]> in
+        .flatMapLatest { _ -> Observable<MaskList> in
             _isLoading.onNext(true)
             return service.rx_fetchData(with: url)
-                .flatMapLatest { maskList in MaskListViewModel.rx_prepareItems(of: maskList) }
-                .catchError { error -> Observable<[MaskListCellViewModel]> in
+               /* here's error will be emit to do(onError), use do() can let nested closure less.
+                .catchError { error -> Observable<MaskList> in
                     _fetchError.onNext(.networkingError(error.localizedDescription))
                     return .empty()
-                }
+                }*/
         }
         .do(onNext: { _ in _isLoading.onNext(false) })
-        .do(onError: { error in _fetchError.onNext(.parseFail(error.localizedDescription)) })
+        .do(onError: { error in
+            _fetchError.onNext(.parseFail(error.localizedDescription)) })
+        .map { MaskListViewModel.rx_prepareItems(of: $0) }
   }
 
   // MARK: - Methods
-  static func rx_prepareItems(of models: MaskListApiService.modelT) -> Observable<[MaskListCellViewModel]> {
+  // why it be static ? On initializing can't use property method
+  static func rx_prepareItems(of models: MaskListApiService.modelT) -> [MaskListCellViewModel] {
     var dic: [String : Int] = [:]
 
     models.features.forEach {
@@ -112,7 +115,7 @@ class MaskListViewModel {
     dic.forEach { cellViewModels.append(MaskListCellViewModel(maskAdult: $0.value, county: $0.key)) }
     cellViewModels.sort(by: { $0.county < $1.county })
     
-    return Observable.just(cellViewModels)
+    return cellViewModels
   }
     
 }

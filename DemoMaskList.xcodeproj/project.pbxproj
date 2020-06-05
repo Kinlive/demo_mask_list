@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -33,6 +33,7 @@
 		FE15188F24766ABF00CF24DD /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15188E24766ABF00CF24DD /* URLSessionProtocol.swift */; };
 		FE151893247765B900CF24DD /* MockSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE151892247765B900CF24DD /* MockSession.swift */; };
 		FE151895247768F100CF24DD /* MaskServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE151894247768F100CF24DD /* MaskServiceTests.swift */; };
+		FEFAB0272488CD24009DE036 /* MockRxSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFAB0262488CD24009DE036 /* MockRxSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		FE15188E24766ABF00CF24DD /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
 		FE151892247765B900CF24DD /* MockSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSession.swift; sourceTree = "<group>"; };
 		FE151894247768F100CF24DD /* MaskServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskServiceTests.swift; sourceTree = "<group>"; };
+		FEFAB0262488CD24009DE036 /* MockRxSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRxSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				1195C7EA247A6D1E00392FE2 /* MockApiService.swift */,
+				FEFAB0262488CD24009DE036 /* MockRxSession.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -142,7 +145,6 @@
 				5AAC233CCA53DDB719B38F63 /* Pods-DemoMaskListTests.debug.xcconfig */,
 				B6A770E714B1556E9EDC8B6A /* Pods-DemoMaskListTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -480,6 +482,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEFAB0272488CD24009DE036 /* MockRxSession.swift in Sources */,
 				1195C7EB247A6D1E00392FE2 /* MockApiService.swift in Sources */,
 				1195C7E4247A455000392FE2 /* MaskListViewModelTests.swift in Sources */,
 				1195C7EE247A6D8500392FE2 /* StubGenerator.swift in Sources */,

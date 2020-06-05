@@ -13,6 +13,7 @@ target 'DemoMaskList' do
     # Pods for testing
     pod 'RxSwift'
     pod 'RxCocoa'
+    pod 'RxTest'
   end
 
 end

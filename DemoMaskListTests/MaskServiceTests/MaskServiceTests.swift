@@ -7,19 +7,27 @@
 //
 
 import XCTest
+import RxSwift
+import RxTest
 
 @testable import DemoMaskList
 class MaskServiceTests: XCTestCase {
     
     var service: MaskListApiService?
     let session = MockSession()
+    let rx_session = MockRxSession()
     
     var resultOfError: ApiError?
     var resultOfModel: MaskListApiService.modelT?
+    
+    // rx use
+    var testScheduler: TestScheduler!
+    var disposeBag: DisposeBag!
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        
+        testScheduler = TestScheduler(initialClock: 0)
+        disposeBag = DisposeBag()
     }
 
     override func tearDownWithError() throws {
@@ -27,6 +35,9 @@ class MaskServiceTests: XCTestCase {
         service = nil
         resultOfError = nil
         resultOfModel = nil
+        
+        testScheduler = nil
+        disposeBag = nil
     }
 
     /*
@@ -41,7 +52,7 @@ class MaskServiceTests: XCTestCase {
     func test_GettingMaskService_BuildsThePath() throws {
         // arrange
         let url = URL(string: "https://com.test_url")!
-        service = MaskListApiService(session: session)
+        service = MaskListApiService(session: session, rxSession: rx_session)
         let expect = XCTestExpectation()
         
         // act
@@ -55,6 +66,15 @@ class MaskServiceTests: XCTestCase {
         XCTAssertEqual(url.path, session.lastUrl?.path)
         // assert with did dataTask had called resume()
         XCTAssertTrue(session.nextDataTask.wasResume)
+        
+        
+        let testData = Observable<Data>.just(Data(count: 100))
+        rx_session.returnTaskData = testData
+        
+        testScheduler.createHotObservable([.next(200, url)])
+            .subscribe(onNext: { [unowned self ] url in self.service?.rx_fetchData(with: url).map { _ in url } })
+            .disposed(by: disposeBag)
+        
     }
     
     func test_GettingMaskService_ResponseParseFail() throws {
@@ -65,7 +85,7 @@ class MaskServiceTests: XCTestCase {
         session.nextData = fakeData
         let expect = XCTestExpectation()
         
-        service = MaskListApiService(session: session)
+        service = MaskListApiService(session: session, rxSession: rx_session)
         
         // act
         service?.fetchData(with: url, result: { [weak self] (result) in
@@ -91,7 +111,7 @@ class MaskServiceTests: XCTestCase {
         // arrange
         let url = URL(string: "test")!
         session.nextError = .networkingError("error anything")
-        service = MaskListApiService(session: session)
+        service = MaskListApiService(session: session, rxSession: rx_session)
         let expect = XCTestExpectation()
         
         // act
@@ -113,7 +133,7 @@ class MaskServiceTests: XCTestCase {
         // arrange
         let url = URL(string: "test")!
         session.nextData = Data()
-        service = MaskListApiService(session: session)
+        service = MaskListApiService(session: session, rxSession: rx_session)
         let failDataEmpty = expectation(description: #function)
         
         // act
@@ -135,7 +155,7 @@ class MaskServiceTests: XCTestCase {
         // arrange
         let truelyUrl = URL(string: "https://raw.githubusercontent.com/kiang/pharmacies/master/json/points.json")!
         
-        service = MaskListApiService(session: URLSession.shared)
+        service = MaskListApiService(session: URLSession.shared, rxSession: rx_session)
         let didFetched = expectation(description: #function)
         
         // act

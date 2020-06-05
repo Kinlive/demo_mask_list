@@ -39,3 +39,7 @@ extension URLSession: RxURLSessionProtocol {
     }
     
 }
+
+protocol RxURLSessionDataTaskProtocol: class {
+    func resume()
+}
