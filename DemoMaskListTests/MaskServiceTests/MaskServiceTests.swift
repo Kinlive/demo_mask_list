@@ -23,11 +23,19 @@ class MaskServiceTests: XCTestCase {
     // rx use
     var testScheduler: TestScheduler!
     var disposeBag: DisposeBag!
-
+    
+    /// new
+    var mockClient: MaskAPIClient!
+    var mockRequest: MockAPIRequest!
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        service = MaskListApiService(session: session, rxSession: rx_session)
+        
         testScheduler = TestScheduler(initialClock: 0)
         disposeBag = DisposeBag()
+        mockRequest = MockAPIRequest()
+        //mockClient = MaskAPIClient(request: mockRequest, nextMask: <#MaskList#>)
     }
 
     override func tearDownWithError() throws {
@@ -38,6 +46,9 @@ class MaskServiceTests: XCTestCase {
         
         testScheduler = nil
         disposeBag = nil
+        
+        mockRequest = nil
+        mockClient = nil
     }
 
     /*
@@ -47,6 +58,52 @@ class MaskServiceTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }*/
+    
+    func test_newClientProcess() {
+
+       
+        //let getMaskList = testScheduler.createObserver(MaskList.self)
+        let stub = StubGenerator().stubOfMaskList()
+        
+        mockClient = MaskAPIClient(request: mockRequest, nextMask: stub)
+        
+         /* be fail
+        mockClient.returnValue
+            .bind(to: getMaskList)
+            .disposed(by: disposeBag)
+
+        testScheduler.createColdObservable([.next(20, ())])
+            .bind(to: mockClient.sendObserver)
+            .disposed(by: disposeBag)
+
+        testScheduler.start()
+
+        mockClient.returnValue
+            .subscribe(onNext: { maskList in
+                print("Test =============\(maskList.type)")
+            })
+            .disposed(by: disposeBag)
+
+        XCTAssertEqual(getMaskList.events.first?.value.element?.features.count, 0) */
+       
+        // success
+        let expect = self.expectation(description: "test")
+        var outMaskList: MaskList?
+        
+        mockClient.returnValue
+            .subscribe(onNext: { maskList in
+                outMaskList = maskList
+                expect.fulfill()
+            })
+            .disposed(by: disposeBag)
+        
+        mockClient.sendObserver.onNext(())
+        
+        wait(for: [expect], timeout: 5)
+        
+        XCTAssertNotEqual(outMaskList?.features.count, 0)
+       
+    }
     
     
     func test_GettingMaskService_BuildsThePath() throws {

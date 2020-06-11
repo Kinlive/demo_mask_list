@@ -33,6 +33,10 @@
 		FE15188F24766ABF00CF24DD /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15188E24766ABF00CF24DD /* URLSessionProtocol.swift */; };
 		FE151893247765B900CF24DD /* MockSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE151892247765B900CF24DD /* MockSession.swift */; };
 		FE151895247768F100CF24DD /* MaskServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE151894247768F100CF24DD /* MaskServiceTests.swift */; };
+		FEBFF173248E130B00BE8297 /* APIClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBFF172248E130B00BE8297 /* APIClientProtocol.swift */; };
+		FEBFF175248E1BA600BE8297 /* MockAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBFF174248E1BA600BE8297 /* MockAPIRequest.swift */; };
+		FECC6585248E0EB9008AFF9F /* APIRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECC6584248E0EB9008AFF9F /* APIRequestProtocol.swift */; };
+		FECC6587248E0EE8008AFF9F /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECC6586248E0EE8008AFF9F /* RequestType.swift */; };
 		FEFAB0272488CD24009DE036 /* MockRxSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFAB0262488CD24009DE036 /* MockRxSession.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +85,10 @@
 		FE15188E24766ABF00CF24DD /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
 		FE151892247765B900CF24DD /* MockSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSession.swift; sourceTree = "<group>"; };
 		FE151894247768F100CF24DD /* MaskServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskServiceTests.swift; sourceTree = "<group>"; };
+		FEBFF172248E130B00BE8297 /* APIClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientProtocol.swift; sourceTree = "<group>"; };
+		FEBFF174248E1BA600BE8297 /* MockAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIRequest.swift; sourceTree = "<group>"; };
+		FECC6584248E0EB9008AFF9F /* APIRequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestProtocol.swift; sourceTree = "<group>"; };
+		FECC6586248E0EE8008AFF9F /* RequestType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
 		FEFAB0262488CD24009DE036 /* MockRxSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRxSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +133,7 @@
 			children = (
 				1195C7EA247A6D1E00392FE2 /* MockApiService.swift */,
 				FEFAB0262488CD24009DE036 /* MockRxSession.swift */,
+				FEBFF174248E1BA600BE8297 /* MockAPIRequest.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -259,6 +268,8 @@
 		FE15189024766BF100CF24DD /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				FECC6583248E0EA1008AFF9F /* Request */,
+				FECC6582248E0E92008AFF9F /* Client */,
 				FE151891247765A500CF24DD /* Session */,
 				FE15187F247657A200CF24DD /* MaskListApiService.swift */,
 			);
@@ -271,6 +282,23 @@
 				FE151892247765B900CF24DD /* MockSession.swift */,
 			);
 			path = Session;
+			sourceTree = "<group>";
+		};
+		FECC6582248E0E92008AFF9F /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				FEBFF172248E130B00BE8297 /* APIClientProtocol.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
+		FECC6583248E0EA1008AFF9F /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				FECC6584248E0EB9008AFF9F /* APIRequestProtocol.swift */,
+				FECC6586248E0EE8008AFF9F /* RequestType.swift */,
+			);
+			path = Request;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -470,10 +498,13 @@
 				FE1518822476580200CF24DD /* ApiServiceProtocol.swift in Sources */,
 				FE151880247657A200CF24DD /* MaskListApiService.swift in Sources */,
 				FE15188D24765C1300CF24DD /* MaskGeometry.swift in Sources */,
+				FECC6587248E0EE8008AFF9F /* RequestType.swift in Sources */,
+				FEBFF173248E130B00BE8297 /* APIClientProtocol.swift in Sources */,
 				FE1518842476590200CF24DD /* ApiError.swift in Sources */,
 				1195C7E2247A43E600392FE2 /* MaskListCellViewModel.swift in Sources */,
 				FE15187B2476572700CF24DD /* MaskListViewModel.swift in Sources */,
 				FE15185A2476565100CF24DD /* SceneDelegate.swift in Sources */,
+				FECC6585248E0EB9008AFF9F /* APIRequestProtocol.swift in Sources */,
 				FE151893247765B900CF24DD /* MockSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -484,6 +515,7 @@
 			files = (
 				FEFAB0272488CD24009DE036 /* MockRxSession.swift in Sources */,
 				1195C7EB247A6D1E00392FE2 /* MockApiService.swift in Sources */,
+				FEBFF175248E1BA600BE8297 /* MockAPIRequest.swift in Sources */,
 				1195C7E4247A455000392FE2 /* MaskListViewModelTests.swift in Sources */,
 				1195C7EE247A6D8500392FE2 /* StubGenerator.swift in Sources */,
 				FE15186F2476565500CF24DD /* DemoMaskListTests.swift in Sources */,
