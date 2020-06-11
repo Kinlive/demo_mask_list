@@ -41,8 +41,8 @@ class MaskListViewController: UIViewController, UITableViewDelegate {
     
   let refreshControl = UIRefreshControl()
 
-  let viewModel = MaskListViewModel()
-
+  var viewModel: MaskListViewModel!
+    
   override func viewDidLoad() {
       super.viewDidLoad()
       // Do any additional setup after loading the view.
