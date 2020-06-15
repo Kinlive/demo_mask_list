@@ -41,8 +41,17 @@ class MaskListViewController: UIViewController, UITableViewDelegate {
     
   let refreshControl = UIRefreshControl()
 
-  var viewModel: MaskListViewModel!
-    
+  private let viewModel: MaskListViewModel
+  
+  init(viewModel: MaskListViewModel) {
+    self.viewModel = viewModel
+    super.init(nibName: nil, bundle: nil)
+  }
+
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+
   override func viewDidLoad() {
       super.viewDidLoad()
       // Do any additional setup after loading the view.
@@ -71,7 +80,7 @@ class MaskListViewController: UIViewController, UITableViewDelegate {
     indicatorView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     indicatorView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 
-    errorButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 30).isActive = true
+    errorButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
     errorButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
     errorButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
     errorButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -97,9 +106,9 @@ class MaskListViewController: UIViewController, UITableViewDelegate {
         .bind(to: viewModel.rx_triggerError)
         .disposed(by: disposeBag)
     
-//    tableView.rx.itemSelected
-//        .subscribe(onNext: { index in self.rx_showAlert.on(.next(.emptyData("selected \(index)")))})
-//        .disposed(by: disposeBag)
+    tableView.rx.itemSelected
+        .subscribe(onNext: { [weak self] index in self?.tableView.deselectRow(at: index, animated: true)} )
+        .disposed(by: disposeBag)
     
     tableView.rx.itemSelected
         .bind(to: viewModel.rx_itemSelected)

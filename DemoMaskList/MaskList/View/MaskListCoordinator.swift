@@ -15,23 +15,22 @@ class MaskListCoordinator: BaseCoordinator<Void> {
     
     private let window: UIWindow
     
-    init(window: UIWindow) {
+    private let maskListViewController: MaskListViewController
+    private let presenter: UINavigationController
+    private let viewModel: MaskListViewModel
+    
+    init(window: UIWindow, presenter: UINavigationController) {
         self.window = window
+        self.presenter = presenter
+        
+        viewModel = MaskListViewModel()
+        
+        maskListViewController = MaskListViewController(viewModel: viewModel)
+        
     }
     
     override func start() -> Observable<Void> {
-        
-        let viewModel = MaskListViewModel()
-        
-        guard let viewController = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(identifier: String(describing: MaskListViewController.self)) as? MaskListViewController else { return .error(NSError(domain: "Initializer MaskListViewController fail", code: 1, userInfo: nil)) }
-        let navigationController = UINavigationController(rootViewController: viewController)
-        
-        viewController.viewModel = viewModel
-        
-        
-        
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
+        presenter.pushViewController(maskListViewController, animated: true)
         
         return Observable.never()
     }

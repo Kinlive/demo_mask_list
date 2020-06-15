@@ -16,9 +16,7 @@
 		4EFE45432691116AE51B5071 /* Pods_DemoMaskList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8013F1471B07757C42D0AEBA /* Pods_DemoMaskList.framework */; };
 		98835739DC101C57146D1AB2 /* Pods_DemoMaskListTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11629E6CBDC936D9061DA93E /* Pods_DemoMaskListTests.framework */; };
 		FE1518582476565100CF24DD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1518572476565100CF24DD /* AppDelegate.swift */; };
-		FE15185A2476565100CF24DD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1518592476565100CF24DD /* SceneDelegate.swift */; };
 		FE15185C2476565100CF24DD /* MaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15185B2476565100CF24DD /* MaskListViewController.swift */; };
-		FE15185F2476565100CF24DD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE15185D2476565100CF24DD /* Main.storyboard */; };
 		FE1518612476565400CF24DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE1518602476565400CF24DD /* Assets.xcassets */; };
 		FE1518642476565400CF24DD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE1518622476565400CF24DD /* LaunchScreen.storyboard */; };
 		FE15186F2476565500CF24DD /* DemoMaskListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15186E2476565500CF24DD /* DemoMaskListTests.swift */; };
@@ -68,9 +66,7 @@
 		C9175DA5E7DE00D241DC2024 /* Pods-DemoMaskList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoMaskList.debug.xcconfig"; path = "Target Support Files/Pods-DemoMaskList/Pods-DemoMaskList.debug.xcconfig"; sourceTree = "<group>"; };
 		FE1518542476565100CF24DD /* DemoMaskList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DemoMaskList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE1518572476565100CF24DD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FE1518592476565100CF24DD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		FE15185B2476565100CF24DD /* MaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskListViewController.swift; sourceTree = "<group>"; };
-		FE15185E2476565100CF24DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FE1518602476565400CF24DD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE1518632476565400CF24DD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FE1518652476565400CF24DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -199,8 +195,6 @@
 				FEBFF17F2492270400BE8297 /* Library */,
 				FE15187E2476577C00CF24DD /* Service */,
 				FE1518792476570500CF24DD /* MaskList */,
-				FE1518592476565100CF24DD /* SceneDelegate.swift */,
-				FE15185D2476565100CF24DD /* Main.storyboard */,
 				FE1518602476565400CF24DD /* Assets.xcassets */,
 				FE1518622476565400CF24DD /* LaunchScreen.storyboard */,
 				FE1518652476565400CF24DD /* Info.plist */,
@@ -413,7 +407,6 @@
 			files = (
 				FE1518642476565400CF24DD /* LaunchScreen.storyboard in Resources */,
 				FE1518612476565400CF24DD /* Assets.xcassets in Resources */,
-				FE15185F2476565100CF24DD /* Main.storyboard in Resources */,
 				1195C7E6247A677900392FE2 /* content.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -531,7 +524,6 @@
 				1195C7E2247A43E600392FE2 /* MaskListCellViewModel.swift in Sources */,
 				FE15187B2476572700CF24DD /* MaskListViewModel.swift in Sources */,
 				FEBFF1812492271600BE8297 /* BaseCoordinator.swift in Sources */,
-				FE15185A2476565100CF24DD /* SceneDelegate.swift in Sources */,
 				FECC6585248E0EB9008AFF9F /* APIRequestProtocol.swift in Sources */,
 				FE151893247765B900CF24DD /* MockSession.swift in Sources */,
 			);
@@ -562,14 +554,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		FE15185D2476565100CF24DD /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FE15185E2476565100CF24DD /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		FE1518622476565400CF24DD /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
