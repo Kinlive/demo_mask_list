@@ -31,6 +31,9 @@
 		FE15188F24766ABF00CF24DD /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE15188E24766ABF00CF24DD /* URLSessionProtocol.swift */; };
 		FE151893247765B900CF24DD /* MockSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE151892247765B900CF24DD /* MockSession.swift */; };
 		FE151895247768F100CF24DD /* MaskServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE151894247768F100CF24DD /* MaskServiceTests.swift */; };
+		FE4AD6812497516900156003 /* MaskDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4AD6802497516900156003 /* MaskDetailCoordinator.swift */; };
+		FEA8FE4224974D6D001A0364 /* MaskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA8FE4124974D6D001A0364 /* MaskDetailViewController.swift */; };
+		FEA8FE4424974D7A001A0364 /* MaskDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEA8FE4324974D7A001A0364 /* MaskDetailViewModel.swift */; };
 		FEBFF173248E130B00BE8297 /* APIClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBFF172248E130B00BE8297 /* APIClientProtocol.swift */; };
 		FEBFF175248E1BA600BE8297 /* MockAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBFF174248E1BA600BE8297 /* MockAPIRequest.swift */; };
 		FEBFF1812492271600BE8297 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEBFF1802492271600BE8297 /* BaseCoordinator.swift */; };
@@ -84,6 +87,9 @@
 		FE15188E24766ABF00CF24DD /* URLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionProtocol.swift; sourceTree = "<group>"; };
 		FE151892247765B900CF24DD /* MockSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSession.swift; sourceTree = "<group>"; };
 		FE151894247768F100CF24DD /* MaskServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskServiceTests.swift; sourceTree = "<group>"; };
+		FE4AD6802497516900156003 /* MaskDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskDetailCoordinator.swift; sourceTree = "<group>"; };
+		FEA8FE4124974D6D001A0364 /* MaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskDetailViewController.swift; sourceTree = "<group>"; };
+		FEA8FE4324974D7A001A0364 /* MaskDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaskDetailViewModel.swift; sourceTree = "<group>"; };
 		FEBFF172248E130B00BE8297 /* APIClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientProtocol.swift; sourceTree = "<group>"; };
 		FEBFF174248E1BA600BE8297 /* MockAPIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockAPIRequest.swift; sourceTree = "<group>"; };
 		FEBFF1802492271600BE8297 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
@@ -195,6 +201,7 @@
 				FEBFF17F2492270400BE8297 /* Library */,
 				FE15187E2476577C00CF24DD /* Service */,
 				FE1518792476570500CF24DD /* MaskList */,
+				FEA8FE4024974D46001A0364 /* MaskDetail */,
 				FE1518602476565400CF24DD /* Assets.xcassets */,
 				FE1518622476565400CF24DD /* LaunchScreen.storyboard */,
 				FE1518652476565400CF24DD /* Info.plist */,
@@ -218,6 +225,7 @@
 		FE1518792476570500CF24DD /* MaskList */ = {
 			isa = PBXGroup;
 			children = (
+				FEA8FE4524974D8D001A0364 /* Coordinator */,
 				FE15188924765BC500CF24DD /* Model */,
 				FE15188824765BBF00CF24DD /* ViewModel */,
 				FE15188724765BB700CF24DD /* View */,
@@ -242,7 +250,6 @@
 			children = (
 				FE15185B2476565100CF24DD /* MaskListViewController.swift */,
 				11B02098247A83D80032E692 /* MaskListCell.swift */,
-				FEBFF185249229D000BE8297 /* MaskListCoordinator.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -284,6 +291,48 @@
 				FE151892247765B900CF24DD /* MockSession.swift */,
 			);
 			path = Session;
+			sourceTree = "<group>";
+		};
+		FE4AD67D2497511200156003 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				FEA8FE4324974D7A001A0364 /* MaskDetailViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		FE4AD67E2497511800156003 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FEA8FE4124974D6D001A0364 /* MaskDetailViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FE4AD67F2497512200156003 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				FE4AD6802497516900156003 /* MaskDetailCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		FEA8FE4024974D46001A0364 /* MaskDetail */ = {
+			isa = PBXGroup;
+			children = (
+				FE4AD67F2497512200156003 /* Coordinator */,
+				FE4AD67E2497511800156003 /* View */,
+				FE4AD67D2497511200156003 /* ViewModel */,
+			);
+			path = MaskDetail;
+			sourceTree = "<group>";
+		};
+		FEA8FE4524974D8D001A0364 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				FEBFF185249229D000BE8297 /* MaskListCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		FEBFF17F2492270400BE8297 /* Library */ = {
@@ -506,6 +555,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEA8FE4224974D6D001A0364 /* MaskDetailViewController.swift in Sources */,
 				FE15188F24766ABF00CF24DD /* URLSessionProtocol.swift in Sources */,
 				FE15188B24765C0400CF24DD /* MaskProperty.swift in Sources */,
 				FE15185C2476565100CF24DD /* MaskListViewController.swift in Sources */,
@@ -514,10 +564,12 @@
 				11B02099247A83D80032E692 /* MaskListCell.swift in Sources */,
 				FE1518582476565100CF24DD /* AppDelegate.swift in Sources */,
 				FE1518822476580200CF24DD /* ApiServiceProtocol.swift in Sources */,
+				FE4AD6812497516900156003 /* MaskDetailCoordinator.swift in Sources */,
 				FE151880247657A200CF24DD /* MaskListApiService.swift in Sources */,
 				FE15188D24765C1300CF24DD /* MaskGeometry.swift in Sources */,
 				FEBFF186249229D000BE8297 /* MaskListCoordinator.swift in Sources */,
 				FECC6587248E0EE8008AFF9F /* RequestType.swift in Sources */,
+				FEA8FE4424974D7A001A0364 /* MaskDetailViewModel.swift in Sources */,
 				FEBFF173248E130B00BE8297 /* APIClientProtocol.swift in Sources */,
 				FEBFF1842492292700BE8297 /* AppCoordinator.swift in Sources */,
 				FE1518842476590200CF24DD /* ApiError.swift in Sources */,

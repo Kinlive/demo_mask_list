@@ -149,6 +149,14 @@ extension Reactive where Base: UIViewController {
         return ControlEvent(events: self.methodInvoked(#selector(Base.viewDidAppear(_:))).map { $0.first as? Bool ?? false })
     }
     
+    public var viewWillDisappear: ControlEvent<Bool> {
+        return ControlEvent(events: self.methodInvoked(#selector(Base.viewWillDisappear(_:))).map { $0.first as? Bool ?? false })
+    }
+    
+    public var viewDidDisappear: ControlEvent<Bool> {
+        return ControlEvent(events: self.methodInvoked(#selector(Base.viewDidDisappear(_:))).map { $0.first as? Bool ?? false })
+    }
+    
     public var viewDidLayoutSubviews: ControlEvent<Void> {
         return ControlEvent(events: self.methodInvoked(#selector(Base.viewDidLayoutSubviews)).map { _ in })
     }
